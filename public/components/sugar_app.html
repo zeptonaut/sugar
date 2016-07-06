@@ -27,8 +27,8 @@
                   user="[[user]]"
                   on-sign-in="onSignIn",
                   on-sign-out="onSignOut"></sugar-header>
-    <sugar-create-task-form on-create-task="onCreateTask"></sugar-create-task-form>
-    <sugar-task-list tasks="[[tasks]]"></sugar-task-list>
+    <sugar-create-task-form on-create-task="onCreateTask" hidden="[[!user]]"></sugar-create-task-form>
+    <sugar-task-list tasks="[[tasks]]" hidden="[[!user]]"></sugar-task-list>
 
   </template>
   <script>

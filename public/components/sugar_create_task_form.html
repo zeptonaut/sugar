@@ -1,8 +1,29 @@
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+
 <dom-module id="sugar-create-task-form">
   <template>
+    <style>
+      paper-card {
+        display: block;
+        width: 400px;
+        padding: 10px;
+      }
+      paper-input {
+        display: inline;
+      }
+      paper-icon-button {
+        display: inline-block;
+      }
+    </style>
     <firebase-document id="task" data="{{task}}"></firebase-document>
-    <input id="description" type="text" value="{{task.description::input}}">
-    <button on-tap="onCreateTask">Create</button>
+
+    <paper-card>
+      <paper-input label="Task description" value="{{task.description::input}}"></paper-input>
+      <paper-icon-button icon="add" on-tap="onCreateTask"></paper-icon-button>
+    </paper-card>
   </template>
   <script>
 Polymer({

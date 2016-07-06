@@ -1,8 +1,23 @@
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
 <dom-module id="sugar-task-list">
   <template>
-    <template is="dom-repeat" items="[[tasks]]">
-      <p>[[item.description]]</p>
-    </template>
+    <style>
+      paper-card {
+        display: block;
+        width: 400px;
+        padding: 10px;
+      }
+      paper-item {
+        --disabled-text-color: black;
+      }
+    </style>
+    <paper-card heading="Tasks">
+      <template is="dom-repeat" items="[[tasks]]">
+        <paper-item disabled>[[item.description]]</paper-item>
+      </template>
+    </paper-card>
   </template>
   <script>
 Polymer({
