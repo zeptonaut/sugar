@@ -1,0 +1,28 @@
+<dom-module id="sugar-header">
+  <template>
+    <div hidden$="[[user]]">
+      <button id="signin" on-tap="onSignIn">Sign In With Google</button>
+    </div>
+    <div hidden$="[[!user]]">
+      <p>Welcome, [[user.displayName]]!</p>
+      <button id="signout" on-tap="onSignOut">Sign Out</button>
+    </div>
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-header',
+
+  properties: {
+    user: Object
+  },
+
+  onSignIn: function() {
+    this.fire('sign-in');
+  },
+
+  onSignOut: function() {
+    this.fire('sign-out');
+  }
+});
+  </script>
+</dom-module>

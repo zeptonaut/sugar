@@ -1,0 +1,26 @@
+<dom-module id="sugar-create-task-form">
+  <template>
+    <firebase-document id="task" data="{{task}}"></firebase-document>
+    <input id="description" type="text" value="{{task.description::input}}">
+    <button on-tap="onCreateTask">Create</button>
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-create-task-form',
+
+  properties: {
+    task: {
+      type: Object,
+      value: () => {
+        return { description: '' };
+      }
+    }
+  },
+
+  onCreateTask: function() {
+    this.fire('create-task', this.task);
+    this.task = { description: '' };
+  }
+});
+  </script>
+</dom-module>

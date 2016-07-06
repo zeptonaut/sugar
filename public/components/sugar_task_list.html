@@ -1,0 +1,16 @@
+<dom-module id="sugar-task-list">
+  <template>
+    <template is="dom-repeat" items="[[tasks]]">
+      <p>[[item.description]]</p>
+    </template>
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-task-list',
+
+  properties: {
+    tasks: Array
+  }
+});
+  </script>
+</dom-module>

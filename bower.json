@@ -1,0 +1,21 @@
+{
+  "name": "sugar",
+  "homepage": "https://github.com/zeptonaut/sugar",
+  "authors": [
+    "Charlie Andrews <andrews.charlie@gmail.com>"
+  ],
+  "description": "Task lists made extensible.",
+  "main": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymerfire": "firebase/polymerfire#^0.9.3"
+  }
+}

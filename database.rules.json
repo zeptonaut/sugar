@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        "tasks": {
+          // Each user has full read/write access to their tasks.
+          ".read": "$uid === auth.uid",
+          ".write": "$uid === auth.uid"
+        }
+      }
+    }
+  }
+}

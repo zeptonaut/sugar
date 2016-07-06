@@ -1,0 +1,62 @@
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="sugar_create_task_form.html">
+<link rel="import" href="sugar_header.html">
+<link rel="import" href="sugar_task_list.html">
+
+<dom-module id="sugar-app">
+  <template>
+    <firebase-app app-name="sugar"
+                  api-key="AIzaSyA_AZemalItTtJAwk-X4nsJjdfF0mEg3hA"
+                  auth-domain="sugar-119d4.firebaseapp.com"
+                  database-url="https://sugar-119d4.firebaseio.com"
+                  storage-bucket="sugar-119d4.appspot.com"></firebase-app>
+    <firebase-auth id="auth"
+                   user="{{user}}"
+                   provider="google"
+                   on-error="onError"></firebase-auth>
+
+    <firebase-query id="tasksDocument"
+                    path="/users/[[user.uid]]/tasks"
+                    data="{{tasks}}"></firebase-query>
+    <firebase-document id="newTaskDocument"></firebase-document>
+
+    <sugar-header id="header"
+                  user="[[user]]"
+                  on-sign-in="onSignIn",
+                  on-sign-out="onSignOut"></sugar-header>
+    <sugar-create-task-form on-create-task="onCreateTask"></sugar-create-task-form>
+    <sugar-task-list tasks="[[tasks]]"></sugar-task-list>
+
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-app',
+
+  onError: function() {
+    window.location = "not_logged_in.html";
+  },
+
+  onSignIn: function() {
+    this.$.auth.signInWithPopup();
+  },
+
+  onSignOut: function() {
+    this.$.auth.signOut();
+  },
+
+  onCreateTask: function(e) {
+    let task = e.detail;
+
+    this.$.newTaskDocument.set('data', task);
+    this.$.newTaskDocument.save(`/users/${this.user.uid}/tasks`).then(
+      () => {},
+      (error) => { window.alert(error); }
+    );
+    this.$.newTaskDocument.reset();
+  }
+});
+  </script>
+</dom-module>
