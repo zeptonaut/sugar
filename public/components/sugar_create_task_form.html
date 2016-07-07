@@ -1,29 +1,12 @@
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="sugar_edit_task_form.html">
 
 <dom-module id="sugar-create-task-form">
   <template>
-    <style>
-      paper-card {
-        display: block;
-        width: 400px;
-        padding: 10px;
-      }
-      paper-input {
-        display: inline;
-      }
-      paper-icon-button {
-        display: inline-block;
-      }
-    </style>
-    <firebase-document id="task" data="{{task}}"></firebase-document>
-
-    <paper-card>
-      <paper-input label="Task description" value="{{task.description::input}}"></paper-input>
-      <paper-icon-button icon="add" on-tap="onCreateTask"></paper-icon-button>
-    </paper-card>
+    <h2>Create task</h2>
+    <form id="createTaskForm">
+      <sugar-edit-task-form task="{{task}}"></sugar-edit-task-form>
+      <input type="submit" value="Add" />
+    </form>
   </template>
   <script>
 Polymer({
@@ -33,15 +16,33 @@ Polymer({
     task: {
       type: Object,
       value: () => {
-        return { description: '' };
+        return {
+          status: 'todo',
+          description: ''
+        };
       }
     }
   },
 
-  onCreateTask: function() {
+  listeners: {
+    'createTaskForm.submit': 'onCreateTask'
+  },
+
+  reset: function() {
+    // TODO(charliea): Is there a way to share the initialization here and
+    // above? It looks like we can't use a `createDefaultTask()` function
+    // because it's not available yet when the property initialization happens.
+    this.task = {
+      status: 'todo',
+      description: ''
+    };
+  },
+
+  onCreateTask: function(e) {
+    e.preventDefault();
     this.fire('create-task', this.task);
-    this.task = { description: '' };
+    this.reset();
   }
 });
-  </script>
+</script>
 </dom-module>

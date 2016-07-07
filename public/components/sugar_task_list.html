@@ -1,22 +1,17 @@
-<link rel="import" href="../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="sugar_edit_task_form.html">
 
 <dom-module id="sugar-task-list">
   <template>
-    <style>
-      paper-card {
-        display: block;
-        width: 400px;
-        padding: 10px;
-      }
-      paper-item {
-        --disabled-text-color: black;
-      }
-    </style>
+    <h2>Tasks</h2>
+    <table>
+      <ul>
+        <template is="dom-repeat" items="{{tasks}}">
+          <li><sugar-edit-task-form task="{{item}}"></sugar-edit-task-form></li>
+        </template>
+      </ul>
+    </table>
     <paper-card heading="Tasks">
-      <template is="dom-repeat" items="[[tasks]]">
-        <paper-item disabled>[[item.description]]</paper-item>
-      </template>
+
     </paper-card>
   </template>
   <script>

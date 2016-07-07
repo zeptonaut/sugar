@@ -17,6 +17,6 @@
   ],
   "dependencies": {
     "polymerfire": "firebase/polymerfire#^0.9.3",
-    "paper-elements": "PolymerElements/paper-elements#^1.0.7"
+    "mousetrap": "^1.6.0"
   }
 }
