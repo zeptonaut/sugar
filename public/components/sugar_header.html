@@ -1,11 +1,11 @@
 <dom-module id="sugar-header">
   <template>
     <div hidden$="[[user]]">
-      <button id="signin" on-tap="onSignIn">Sign In With Google</button>
+      <button id="signIn">Sign In With Google</button>
     </div>
     <div hidden$="[[!user]]">
       Welcome, [[user.displayName]]!
-      <button id="signout" on-tap="onSignOut">Sign Out</button>
+      <button id="signOut">Sign Out</button>
     </div>
   </template>
   <script>
@@ -14,6 +14,11 @@ Polymer({
 
   properties: {
     user: Object
+  },
+
+  listeners: {
+    'signIn.tap': 'onSignIn',
+    'signOut.tap': 'onSignOut'
   },
 
   onSignIn: function() {
