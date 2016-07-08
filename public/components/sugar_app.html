@@ -2,7 +2,7 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
-<link rel="import" href="sugar_create_task_form.html">
+<link rel="import" href="sugar_task_creator.html">
 <link rel="import" href="sugar_header.html">
 <link rel="import" href="sugar_task_list.html">
 
@@ -27,8 +27,10 @@
                   user="[[user]]"
                   on-sign-in="onSignIn",
                   on-sign-out="onSignOut"></sugar-header>
-    <sugar-create-task-form on-create-task="onCreateTask" hidden="[[!user]]"></sugar-create-task-form>
-    <sugar-task-list tasks="{{tasks}}" hidden="[[!user]]"></sugar-task-list>
+    <sugar-task-creator on-create-task="onCreateTask" hidden="[[!user]]"></sugar-task-creator>
+    <sugar-task-list tasks="{{tasks}}"
+                     hidden="[[!user]]"
+                     on-edit-task="onEditTask"></sugar-task-list>
 
   </template>
   <script>
@@ -48,10 +50,23 @@ Polymer({
   },
 
   onCreateTask: function(e) {
+    this.saveTask_(e.detail);
+  },
+
+  onEditTask: function(e) {
     let task = e.detail;
 
+    // Firebase complains if we try to save an object that still has the $key
+    // property on it. Delete it before attempting the save.
+    let key = task.$key;
+    delete task.$key;
+
+    this.saveTask_(task, key);
+  },
+
+  saveTask_: function(task, key) {
     this.$.newTaskDocument.set('data', task);
-    this.$.newTaskDocument.save(`/users/${this.user.uid}/tasks`).then(
+    this.$.newTaskDocument.save(`/users/${this.user.uid}/tasks`, key).then(
       () => {},
       (error) => { window.alert(error); }
     );

@@ -1,18 +1,13 @@
-<link rel="import" href="sugar_edit_task_form.html">
+<link rel="import" href="sugar_task_list_item.html">
 
 <dom-module id="sugar-task-list">
   <template>
     <h2>Tasks</h2>
-    <table>
-      <ul>
-        <template is="dom-repeat" items="{{tasks}}">
-          <li><sugar-edit-task-form task="{{item}}"></sugar-edit-task-form></li>
-        </template>
-      </ul>
-    </table>
-    <paper-card heading="Tasks">
-
-    </paper-card>
+    <ul>
+      <template is="dom-repeat" items="{{tasks}}">
+        <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
+      </template>
+    </ul>
   </template>
   <script>
 Polymer({
