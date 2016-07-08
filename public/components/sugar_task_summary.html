@@ -1,0 +1,15 @@
+<dom-module id="sugar-task-summary">
+  <template>
+    <div>{{task.status}}</div>
+    <div>{{task.description}}</div>
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-task-summary',
+
+  properties: {
+    task: Object
+  }
+});
+  </script>
+</dom-module>

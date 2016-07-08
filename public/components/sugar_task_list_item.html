@@ -1,0 +1,54 @@
+<link rel="import" href="sugar_task_editor.html">
+<link rel="import" href="sugar_task_summary.html">
+
+<dom-module id="sugar-task-list-item">
+  <template>
+    <span id="readView" hidden="{{isBeingEdited}}">
+      <sugar-task-summary task="{{task}}"></sugar-task-summary>
+      <button id="editorEnter">Edit</button>
+    </span>
+    <span id="editView" hidden="{{!isBeingEdited}}">
+      <sugar-task-editor task="{{editorTask}}"></sugar-task-editor>
+      <button id="editorSave">Save</button>
+      <button id="editorCancel">Cancel</button>
+    </span>
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-task-list-item',
+
+  properties: {
+    task: Object,
+    editorTask: Object,
+    isBeingEdited: {
+      type: Boolean,
+      value: false
+    }
+  },
+
+  listeners: {
+    'editorEnter.tap': 'onEditorEnter',
+    'editorSave.tap': 'onEditorSave',
+    'editorCancel.tap': 'onEditorCancel'
+  },
+
+  onEditorEnter: function() {
+    // Make a shallow copy of the task for the editor to use. This allows the
+    // user to hit a cancel button and have the task stay in its prior state.
+    var taskCopy = {};
+    Object.assign(taskCopy, this.task);
+    this.set('editorTask', taskCopy);
+    this.isBeingEdited = true;
+  },
+
+  onEditorSave: function() {
+    this.fire('edit-task', this.editorTask);
+    this.isBeingEdited = false;
+  },
+
+  onEditorCancel: function() {
+    this.isBeingEdited = false;
+  }
+});
+  </script>
+</dom-module>

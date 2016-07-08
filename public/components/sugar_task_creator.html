@@ -1,0 +1,48 @@
+<link rel="import" href="sugar_task_editor.html">
+
+<dom-module id="sugar-task-creator">
+  <template>
+    <h2>Create task</h2>
+    <form id="createTaskForm">
+      <sugar-task-editor task="{{task}}"></sugar-task-editor>
+      <input type="submit" value="Add" />
+    </form>
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-task-creator',
+
+  properties: {
+    task: {
+      type: Object,
+      value: () => {
+        return {
+          status: 'todo',
+          description: ''
+        };
+      }
+    }
+  },
+
+  listeners: {
+    'createTaskForm.submit': 'onCreateTask'
+  },
+
+  reset: function() {
+    // TODO(charliea): Is there a way to share the initialization here and
+    // above? It looks like we can't use a `createDefaultTask()` function
+    // because it's not available yet when the property initialization happens.
+    this.task = {
+      status: 'todo',
+      description: ''
+    };
+  },
+
+  onCreateTask: function(e) {
+    e.preventDefault();
+    this.fire('create-task', this.task);
+    this.reset();
+  }
+});
+</script>
+</dom-module>
