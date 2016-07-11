@@ -17,8 +17,9 @@ Polymer({
       type: Object,
       value: () => {
         return {
-          status: 'todo',
-          description: ''
+          status: '',
+          description: '',
+          scheduledTime: null
         };
       }
     }
@@ -33,8 +34,9 @@ Polymer({
     // above? It looks like we can't use a `createDefaultTask()` function
     // because it's not available yet when the property initialization happens.
     this.task = {
-      status: 'todo',
-      description: ''
+      status: '',
+      description: '',
+      scheduledTime: null
     };
   },
 

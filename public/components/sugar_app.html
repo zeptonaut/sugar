@@ -21,7 +21,7 @@
     <firebase-query id="tasksDocument"
                     path="/users/[[user.uid]]/tasks"
                     data="{{tasks}}"></firebase-query>
-    <firebase-document id="newTaskDocument"></firebase-document>
+    <firebase-document id="taskDocument"></firebase-document>
 
     <sugar-header id="header"
                   user="[[user]]"
@@ -65,12 +65,12 @@ Polymer({
   },
 
   saveTask_: function(task, key) {
-    this.$.newTaskDocument.set('data', task);
-    this.$.newTaskDocument.save(`/users/${this.user.uid}/tasks`, key).then(
+    this.$.taskDocument.set('data', task);
+    this.$.taskDocument.save(`/users/${this.user.uid}/tasks`, key).then(
       () => {},
       (error) => { window.alert(error); }
     );
-    this.$.newTaskDocument.reset();
+    this.$.taskDocument.reset();
   }
 });
   </script>

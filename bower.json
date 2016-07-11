@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "polymerfire": "firebase/polymerfire#^0.9.3",
-    "mousetrap": "^1.6.0"
+    "mousetrap": "^1.6.0",
+    "chrono": "^1.2.3",
   }
 }

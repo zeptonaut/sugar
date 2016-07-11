@@ -1,7 +1,8 @@
 <dom-module id="sugar-task-summary">
   <template>
-    <div>{{task.status}}</div>
+    <div hidden="{{!task.status}}">{{task.status}}</div>
     <div>{{task.description}}</div>
+    <div hidden="{{!task.scheduledTime}}">{{computeTimeText(task.scheduledTime)}}</div>
   </template>
   <script>
 Polymer({
@@ -9,6 +10,15 @@ Polymer({
 
   properties: {
     task: Object
+  },
+
+  // TODO(charliea): This "compute the human-readable value from the database
+  // value" logic is duplicated: once in sugar_time_input.html, and once
+  // here. How can I consolidate that logic? Is there some way to use a wrapper
+  // around the database object?
+  computeTimeText: function(time) {
+    return this.task.scheduledTime ?
+        new Date(this.task.scheduledTime).toString() : 'none';
   }
 });
   </script>

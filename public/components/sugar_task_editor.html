@@ -1,11 +1,24 @@
+<link rel="import" href="sugar_time_input.html">
+
 <dom-module id="sugar-task-editor">
   <template>
-    <select value="{{task.status::change}}">
-      <option value="todo">todo</option>
-      <option value="waiting">waiting</option>
-      <option value="done">done</option>
-    </select>
-    <input label="Task description" value="{{task.description::input}}" />
+    <div>
+      <label>Status</label>
+      <select value="{{task.status::change}}">
+        <option value="">none</option>
+        <option value="todo">todo</option>
+        <option value="waiting">waiting</option>
+        <option value="done">done</option>
+      </select>
+    </div>
+    <div>
+      <label>Description</label>
+      <input label="Task description"
+             value="{{task.description::input}}" />
+    </div>
+    <div>
+      <sugar-time-input time="{{task.scheduledTime}}"></sugar-time-input>
+    </div>
   </template>
   <script>
 Polymer({
