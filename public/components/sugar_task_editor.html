@@ -1,3 +1,4 @@
+<link rel="import" href="sugar_tags_input.html">
 <link rel="import" href="sugar_time_input.html">
 
 <dom-module id="sugar-task-editor">
@@ -17,15 +18,24 @@
              value="{{task.description::input}}" />
     </div>
     <div>
+      <label>Scheduled time</label>
       <sugar-time-input time="{{task.scheduledTime}}"></sugar-time-input>
     </div>
+    <div>
+      <label>Deadline time</label>
+      <sugar-time-input time="{{task.deadlineTime}}"></sugar-time-input>
+    </div>
+    <div>
+      <label>Tags</label>
+      <sugar-tags-input tags="{{task.tags}}" knownTags="{{knownTags}}"></sugar-tags-input>
   </template>
   <script>
 Polymer({
   is: 'sugar-task-editor',
 
   properties: {
-    task: Object
+    task: Object,
+    knownTags: Array
   }
 });
   </script>

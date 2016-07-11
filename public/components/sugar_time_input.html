@@ -2,9 +2,8 @@
 
 <dom-module id="sugar-time-input">
   <template>
-    <label>Scheduled time</label>
     <input id="textInput" type="text" />
-    <span>{{computeTimeText(time)}}</span>
+    <span>{{computeTimeText_(time)}}</span>
   </template>
   <script>Polymer({
   is: 'sugar-time-input',
@@ -17,15 +16,15 @@
   },
 
   listeners: {
-    'textInput.input': 'onTextInputChanged'
+    'textInput.input': 'onTextInput_'
   },
 
-  onTextInputChanged: function(e) {
+  onTextInput_: function(e) {
     var time = chrono.parseDate(this.$.textInput.value);
     this.set('time', (time === null) ? null : time.getTime());
   },
 
-  computeTimeText: function(time) {
+  computeTimeText_: function(time) {
     return this.time ? new Date(this.time).toString() : 'none';
   }
 });

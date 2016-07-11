@@ -4,7 +4,7 @@
   <template>
     <h2>Create task</h2>
     <form id="createTaskForm">
-      <sugar-task-editor task="{{task}}"></sugar-task-editor>
+      <sugar-task-editor task="{{task}}" knownTags="{{knownTags}}"></sugar-task-editor>
       <input type="submit" value="Add" />
     </form>
   </template>
@@ -19,10 +19,13 @@ Polymer({
         return {
           status: '',
           description: '',
-          scheduledTime: null
+          scheduledTime: null,
+          deadlineTime: null,
+          tags: [],
         };
       }
-    }
+    },
+    knownTags: Array
   },
 
   listeners: {
@@ -36,7 +39,9 @@ Polymer({
     this.task = {
       status: '',
       description: '',
-      scheduledTime: null
+      scheduledTime: null,
+      deadlineTime: null,
+      tags: []
     };
   },
 

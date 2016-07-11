@@ -1,0 +1,44 @@
+<!--
+TODO(charliea): I think that some sort of dropdown similar to the Github tag
+component would be better here.
+  -->
+<!-- Ugh. Wonderful. A dependency on jQuery. Required for typeahead.js. -->
+
+<script src="../bower_components/typeahead.js/dist/typeahead.jquery.min.js"></script>
+
+<dom-module id="sugar-tags-input">
+  <template>
+    <input id="textInput" />
+    <template is="dom-repeat" items="{{tags}}">
+      <!-- TODO(charliea): Provide a means to delete the tags. -->
+      <div>{{item}}</div>
+    </template>
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-tags-input',
+
+  properties: {
+    tags: {
+      type: Array,
+      notify: true
+    },
+    knownTags: Array
+  },
+
+  listeners: {
+    'textInput.keypress': 'onTextInputKeyPress_'
+  },
+
+  onTextInputKeyPress_: function(e) {
+    if (e.charCode !== 13)
+      // Only listen for the enter key.
+      return;
+
+    this.push('tags', this.$.textInput.value);
+    this.$.textInput.value = "";
+    e.preventDefault();
+  }
+});
+  </script>
+</dom-module>

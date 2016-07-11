@@ -1,8 +1,20 @@
 <dom-module id="sugar-task-summary">
   <template>
+    <style>
+      label {
+        font-weight: bold;
+      }
+    </style>
     <div hidden="{{!task.status}}">{{task.status}}</div>
     <div>{{task.description}}</div>
-    <div hidden="{{!task.scheduledTime}}">{{computeTimeText(task.scheduledTime)}}</div>
+    <div hidden="{{!task.scheduledTime}}">
+      <label>Scheduled:</label>
+      {{computeTimeText(task.scheduledTime)}}
+    </div>
+    <div hidden="{{!task.deadlineTime}}">
+      <label>Deadline:</label>
+      {{computeTimeText(task.deadlineTime)}}
+    </div>
   </template>
   <script>
 Polymer({
@@ -17,8 +29,7 @@ Polymer({
   // here. How can I consolidate that logic? Is there some way to use a wrapper
   // around the database object?
   computeTimeText: function(time) {
-    return this.task.scheduledTime ?
-        new Date(this.task.scheduledTime).toString() : 'none';
+    return time ? new Date(time).toString() : 'none';
   }
 });
   </script>

@@ -5,6 +5,7 @@
 <link rel="import" href="sugar_task_creator.html">
 <link rel="import" href="sugar_header.html">
 <link rel="import" href="sugar_task_list.html">
+<link rel="import" href="task_helpers.html">
 
 <dom-module id="sugar-app">
   <template>
@@ -27,8 +28,11 @@
                   user="[[user]]"
                   on-sign-in="onSignIn",
                   on-sign-out="onSignOut"></sugar-header>
-    <sugar-task-creator on-create-task="onCreateTask" hidden="[[!user]]"></sugar-task-creator>
+    <sugar-task-creator hidden="[[!user]]"
+                        knownTags="{{knownTags}}"
+                        on-create-task="onCreateTask"></sugar-task-creator>
     <sugar-task-list tasks="{{tasks}}"
+                     knownTags="{{knownTags}}"
                      hidden="[[!user]]"
                      on-edit-task="onEditTask"></sugar-task-list>
 
@@ -36,6 +40,14 @@
   <script>
 Polymer({
   is: 'sugar-app',
+
+  properties: {
+    tasks: Array,
+    knownTags: {
+      type: Array,
+      computed: 'computeKnownTags_(tasks)'
+    }
+  },
 
   onError: function() {
     window.location = "not_logged_in.html";
@@ -71,6 +83,10 @@ Polymer({
       (error) => { window.alert(error); }
     );
     this.$.taskDocument.reset();
+  },
+
+  computeKnownTags_(tasks) {
+    return computeKnownTags(tasks);
   }
 });
   </script>
