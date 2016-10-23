@@ -1,4 +1,4 @@
-/* description: Parses end creates Sugar task search queries. */
+/* description: Parses and creates Sugar task search queries. */
 
 /* lexical grammar */
 %lex
