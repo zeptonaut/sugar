@@ -3,9 +3,9 @@
 <dom-module id="sugar-task-list">
   <template>
     <h2>Tasks</h2>
-    <ul class="list-group">
+    <ul>
       <template is="dom-repeat" items="{{tasks}}">
-        <li class="list-group-item"><sugar-task-list-item task="{{item}}" knownTags="{{knownTags}}"></sugar-task-list-item></li>
+        <li><sugar-task-list-item task="{{item}}" knownTags="{{knownTags}}"></sugar-task-list-item></li>
       </template>
     </ul>
   </template>

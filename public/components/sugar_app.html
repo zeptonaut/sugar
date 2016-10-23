@@ -24,7 +24,6 @@
                     data="{{tasks}}"></firebase-query>
     <firebase-document id="taskDocument"></firebase-document>
 
-    <div class="container">
     <sugar-header id="header"
                   user="[[user]]"
                   on-sign-in="onSignIn",
@@ -36,7 +35,6 @@
                      knownTags="{{knownTags}}"
                      hidden="[[!user]]"
                      on-edit-task="onEditTask"></sugar-task-list>
-    </div><!-- /.container -->
 
   </template>
   <script>

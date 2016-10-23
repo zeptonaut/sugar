@@ -9,16 +9,14 @@
         display: none;
       }
     </style>
-    <div class="row">
-         <div class="col-md-1">{{task.status}}</div>
-         <div><strong>{{task.description}}</strong></div>
-    </div>
-    <button class="btn btn-sm btn-success" hidden="{{!task.scheduledTime}}">
+    <div>{{task.status}}</div>
+    <div>{{task.description}}</div>
+    <div hidden="{{!task.scheduledTime}}">
       Scheduled: {{computeTimeText(task.scheduledTime)}}
-    </button>
-    <button class="btn btn-sm btn-danger" hidden="{{!task.deadlineTime}}">
+    </div>
+    <div hidden="{{!task.deadlineTime}}">
       Deadline: {{computeTimeText(task.deadlineTime)}}
-    </button>
+    </div>
   </template>
   <script>
 Polymer({

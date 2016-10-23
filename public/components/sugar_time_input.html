@@ -7,10 +7,7 @@
         text-align: right;
       }
     </style>
-    <div class="input-group">
-      <input id="textInput" type="text" placeholder$="{{placeholder}}" class="form-control" />
-      <div id="timeText" class="input-group-addon">{{computeTimeText_(time)}}</div>
-    </div><!-- /.input-group -->
+    <input id="textInput" type="text" placeholder$="{{placeholder}}" /><span id="timeText">({{computeTimeText_(time)}})</span>
   </template>
   <script>Polymer({
   is: 'sugar-time-input',
