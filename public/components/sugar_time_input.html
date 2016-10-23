@@ -2,8 +2,15 @@
 
 <dom-module id="sugar-time-input">
   <template>
-    <input id="textInput" type="text" />
-    <span>{{computeTimeText_(time)}}</span>
+    <style>
+      #timeText {
+        text-align: right;
+      }
+    </style>
+    <div class="input-group">
+      <input id="textInput" type="text" placeholder$="{{placeholder}}" class="form-control" />
+      <div id="timeText" class="input-group-addon">{{computeTimeText_(time)}}</div>
+    </div><!-- /.input-group -->
   </template>
   <script>Polymer({
   is: 'sugar-time-input',
@@ -12,6 +19,10 @@
     time: {
       type: Number,
       notify: true
+    },
+    placeholder: {
+      type: String,
+      value: ""
     }
   },
 
@@ -25,7 +36,7 @@
   },
 
   computeTimeText_: function(time) {
-    return this.time ? new Date(this.time).toString() : 'none';
+    return this.time ? new Date(this.time).toLocaleString() : 'none';
   }
 });
   </script>

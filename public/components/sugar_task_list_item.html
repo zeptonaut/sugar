@@ -3,16 +3,25 @@
 
 <dom-module id="sugar-task-list-item">
   <template>
-    <span id="readView" hidden="{{isBeingEdited}}">
-      <sugar-task-summary task="{{task}}"></sugar-task-summary>
-      <button id="editorEnter">Edit</button>
-    </span>
-    <span id="editView" hidden="{{!isBeingEdited}}">
+    <div id="readView" hidden="{{isBeingEdited}}" class="row">
+      <sugar-task-summary task="{{task}}"
+                          class="col-md-10"></sugar-task-summary>
+      <div class="col-md-2">
+        <button id="editorEnter" class="btn btn-sm btn-default pull-right">
+          <i title="edit" class="glyphicon glyphicon-edit"></i></button>
+      </div>
+    </div>
+    <div id="editView" hidden="{{!isBeingEdited}}" class="row">
       <sugar-task-editor task="{{editorTask}}"
                          knownTags="{{knownTags}}"></sugar-task-editor>
-      <button id="editorSave">Save</button>
-      <button id="editorCancel">Cancel</button>
-    </span>
+      <div class="col-md-2">
+        <div class="pull-right">
+          <button id="editorSave"
+                  class="btn btn-sm btn-primary">Save</button>
+          <button id="editorCancel"
+                  class="btn btn-sm btn-default">Cancel</button>
+      </div>
+    </div>
   </template>
   <script>
 Polymer({
