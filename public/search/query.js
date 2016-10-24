@@ -93,7 +93,7 @@ case 3:
 return $$[$0-1] + ' ' + $$[$0-3];
 break;
 case 5:
-this.$ = yytext;
+this.$ = `task.description.indexOf(${yytext}) != -1`;
 break;
 case 6:
 this.$ = '(' + $$[$0-2] + ' AND ' + $$[$0] + ')';
