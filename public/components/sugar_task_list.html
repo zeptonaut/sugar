@@ -1,8 +1,10 @@
 <link rel="import" href="sugar_task_list_item.html">
+<link rel="import" href="sugar_task_search_input.html">
 
 <dom-module id="sugar-task-list">
   <template>
     <h2>Tasks</h2>
+    <sugar-task-search-input search="{{search}}"></sugar-task-search-input>
     <ul>
       <template is="dom-repeat" items="{{tasks}}">
         <li><sugar-task-list-item task="{{item}}" knownTags="{{knownTags}}"></sugar-task-list-item></li>
@@ -21,7 +23,8 @@ Polymer({
     // |knownTags| property to avoid recalculating it in two places (sugar_app
     // and here). I see this as the lesser of two evils, but this again hints at
     // the idea that some sort of "model overlay" would be really nice.
-    knownTags: Array
+    knownTags: Array,
+    search: Object
   }
 });
   </script>

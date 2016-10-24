@@ -1,0 +1,45 @@
+<script>
+// TODO(charliea): Everything in this file is in the global namespace. That's a
+// problem.
+
+/**
+ * Returns a compare function that compares two tasks based on `fieldStr` and
+ * in order `orderStr`.
+ */
+function getCompare(fieldStr, orderStr) {
+  var fieldFn;
+  if (fieldStr === 'scheduled') {
+    fieldFn = scheduledDateCompare;
+  }
+
+  if (fieldFn === undefined) {
+    throw new Error(`${fieldStr} is not a valid sort field`);
+  }
+
+  if (orderStr === '+') {
+    // The default per-field compare functions are in ascending order.
+    return fieldFn;
+  } else if (orderStr === '-') {
+    // Reverse the default per-field compare function for a descending order.
+    return (task1, task2) => { return -fieldFn(task1, task2); };
+  }
+
+  throw new Error(`${orderStr} is not a valid search order specifier`);
+}
+
+/**
+ * A compare function for two tasks that returns true if `task1` has a
+ * scheduled date before `task2`.
+ *
+ * Tasks with no scheduled time are treated as if they're scheduled infinitely
+ * far in the future.
+ */
+function scheduledDateCompare(task1, task2) {
+  var time1 = task1.scheduledTime !== undefined ?
+      task1.scheduledTime.getTime() : Infinity;
+  var time2 = task2.scheduledTime !== undefined ?
+      task2.scheduledTime.getTime() : Infinity;
+
+  return time1 - time2;
+}
+</script>

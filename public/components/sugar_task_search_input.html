@@ -1,0 +1,37 @@
+<link rel="import" href="../search/comparators.html">
+<script src="../search/query.js"></script>
+
+<dom-module id="sugar-task-search-input">
+  <template>
+    <style>
+      #queryParseError {
+        color: red;
+      }
+    </style>
+    <input value="{{queryString::input}}" />
+    <div id="queryParseError">[[queryParseError]]</div>
+  </template>
+  <script>
+Polymer({
+  is: 'sugar-task-search-input',
+
+  properties: {
+    queryParseError: String,
+    queryString: String,
+    search: {
+      type: Object,
+      computed: 'computeSearch_(queryString)'
+    }
+  },
+
+  computeSearch_: function(queryString) {
+    try {
+      var search = query.parse(queryString);
+      this.set('queryParseError', '');
+    } catch(e) {
+      this.set('queryParseError', e.message);
+    }
+  }
+});
+</script>
+</dom-module>
