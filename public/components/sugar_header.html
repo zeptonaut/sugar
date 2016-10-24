@@ -1,12 +1,16 @@
 <dom-module id="sugar-header">
   <template>
     <nav>
-      <button id="signOut" on-tap="onSignOut">
-        Sign Out
-      </button>
-      <button id="signIn" on-tap="onSignIn">
-        Sign In With Google
-      </button>
+      <template is="dom-if" if="[[user]]">
+        <button id="signOut" on-tap="onSignOut">
+          Sign Out
+        </button>
+      </template>
+      <template is="dom-if" if="[[!user]]">
+        <button id="signIn" on-tap="onSignIn">
+          Sign In With Google
+        </button>
+      </template>
     </nav>
   </template>
   <script>
