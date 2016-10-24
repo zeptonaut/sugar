@@ -9,7 +9,6 @@
 */
 "sort:"               return 'SORT'
 [A-Za-z0-9]+          return 'TERM'
-","                   return ','
 "+"                   return '+'
 "-"                   return '-'
 <<EOF>>               return 'EOF'
@@ -43,9 +42,7 @@ filter
 */
 sort
     : SORT sort_order
-        { $$ = 'SORT BY ' + $2; }
-    | sort ',' sort_order
-        { $$ = $1 + ' ' + $3; }
+        { $$ = $2; }
     ;
 
 sort_order

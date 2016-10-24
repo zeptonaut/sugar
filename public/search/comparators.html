@@ -35,11 +35,8 @@ function getCompare(fieldStr, orderStr) {
  * far in the future.
  */
 function scheduledDateCompare(task1, task2) {
-  var time1 = task1.scheduledTime !== undefined ?
-      task1.scheduledTime.getTime() : Infinity;
-  var time2 = task2.scheduledTime !== undefined ?
-      task2.scheduledTime.getTime() : Infinity;
-
+  var time1 = task1.scheduledTime || Infinity;
+  var time2 = task2.scheduledTime || Infinity;
   return time1 - time2;
 }
 </script>

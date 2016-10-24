@@ -20,7 +20,8 @@ Polymer({
     queryString: String,
     search: {
       type: Object,
-      computed: 'computeSearch_(queryString)'
+      computed: 'computeSearch_(queryString)',
+      notify: true
     }
   },
 
@@ -28,9 +29,14 @@ Polymer({
     try {
       var search = query.parse(queryString);
       this.set('queryParseError', '');
+      return search;
     } catch(e) {
+      // TODO(charliea): It seems like what we do on failure here has big
+      // ramifications, but I haven't really though them through yet.
       this.set('queryParseError', e.message);
     }
+
+    return undefined;
   }
 });
 </script>

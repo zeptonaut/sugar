@@ -72,12 +72,12 @@
   }
 */
 var query = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,7],$V1=[1,8],$V2=[5,8];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o};
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"query":3,"sort":4,"EOF":5,"SORT":6,"sort_order":7,",":8,"+":9,"TERM":10,"-":11,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",6:"SORT",8:",",9:"+",10:"TERM",11:"-"},
-productions_: [0,[3,2],[4,2],[4,3],[7,2],[7,2]],
+symbols_: {"error":2,"query":3,"sort":4,"EOF":5,"SORT":6,"sort_order":7,"+":8,"TERM":9,"-":10,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",6:"SORT",8:"+",9:"TERM",10:"-"},
+productions_: [0,[3,2],[4,2],[7,2],[7,2]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -87,21 +87,18 @@ case 1:
  return { sort: $$[$0-1] }; 
 break;
 case 2:
- this.$ = 'SORT BY ' + $$[$0]; 
+ this.$ = $$[$0]; 
 break;
 case 3:
- this.$ = $$[$0-2] + ' ' + $$[$0]; 
-break;
-case 4:
  this.$ = getCompare(yytext, '+'); 
 break;
-case 5:
+case 4:
  this.$ = getCompare(yytext, '-'); 
 break;
 }
 },
-table: [{3:1,4:2,6:[1,3]},{1:[3]},{5:[1,4],8:[1,5]},{7:6,9:$V0,11:$V1},{1:[2,1]},{7:9,9:$V0,11:$V1},o($V2,[2,2]),{10:[1,10]},{10:[1,11]},o($V2,[2,3]),o($V2,[2,4]),o($V2,[2,5])],
-defaultActions: {4:[2,1]},
+table: [{3:1,4:2,6:[1,3]},{1:[3]},{5:[1,4]},{7:5,8:[1,6],10:[1,7]},{1:[2,1]},{5:[2,2]},{9:[1,8]},{9:[1,9]},{5:[2,3]},{5:[2,4]}],
+defaultActions: {4:[2,1],5:[2,2],8:[2,3],9:[2,4]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -582,22 +579,20 @@ var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
 case 0:return 6
 break;
-case 1:return 10
+case 1:return 9
 break;
 case 2:return 8
 break;
-case 3:return 9
+case 3:return 10
 break;
-case 4:return 11
+case 4:return 5
 break;
-case 5:return 5
-break;
-case 6:return 'INVALID'
+case 5:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:sort:)/,/^(?:[A-Za-z0-9]+)/,/^(?:,)/,/^(?:\+)/,/^(?:-)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6],"inclusive":true}}
+rules: [/^(?:sort:)/,/^(?:[A-Za-z0-9]+)/,/^(?:\+)/,/^(?:-)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5],"inclusive":true}}
 });
 return lexer;
 })();
