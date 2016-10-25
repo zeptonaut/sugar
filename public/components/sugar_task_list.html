@@ -4,7 +4,7 @@
   <template>
     <h2>Tasks</h2>
     <ul>
-      <template is="dom-repeat" items="{{tasks}}">
+      <template is="dom-repeat" items="{{tasks}}" sort="taskCompare_">
         <li><sugar-task-list-item task="{{item}}" knownTags="{{knownTags}}"></sugar-task-list-item></li>
       </template>
     </ul>
@@ -22,6 +22,18 @@ Polymer({
     // and here). I see this as the lesser of two evils, but this again hints at
     // the idea that some sort of "model overlay" would be really nice.
     knownTags: Array
+  },
+
+  taskCompare_: function(task1, task2) {
+    var task1Scheduled = task1.scheduledTime || Infinity;
+    var task2Scheduled = task2.scheduledTime || Infinity;
+    var task1Deadline = task1.deadlineTime || Infinity;
+    var task2Deadline = task2.deadlineTime || Infinity;
+
+    var task1Time = Math.min(task1Scheduled, task1Deadline);
+    var task2Time = Math.min(task2Scheduled, task2Deadline);
+
+    return task1Time - task2Time;
   }
 });
   </script>
