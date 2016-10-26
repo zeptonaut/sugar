@@ -10,8 +10,7 @@
       </div>
     </div>
     <div id="editView" hidden="{{!isBeingEdited}}">
-      <sugar-task-editor task="{{editorTask}}"
-                         knownTags="{{knownTags}}"></sugar-task-editor>
+      <sugar-task-editor task="{{editorTask}}"></sugar-task-editor>
       <div>
         <button id="editorSave">Save</button>
         <button id="editorCancel">Cancel</button>
@@ -24,7 +23,6 @@ Polymer({
 
   properties: {
     task: Object,
-    knownTags: Array,
     editorTask: Object,
     isBeingEdited: {
       type: Boolean,

@@ -29,10 +29,8 @@
                   on-sign-in="onSignIn",
                   on-sign-out="onSignOut"></sugar-header>
     <sugar-task-creator hidden="[[!user]]"
-                        knownTags="{{knownTags}}"
                         on-create-task="onCreateTask"></sugar-task-creator>
     <sugar-task-list tasks="{{tasks}}"
-                     knownTags="{{knownTags}}"
                      hidden="[[!user]]"
                      on-edit-task="onEditTask"></sugar-task-list>
 
@@ -42,11 +40,7 @@ Polymer({
   is: 'sugar-app',
 
   properties: {
-    tasks: Array,
-    knownTags: {
-      type: Array,
-      computed: 'computeKnownTags_(tasks)'
-    }
+    tasks: Array
   },
 
   onError: function() {
@@ -83,10 +77,6 @@ Polymer({
       (error) => { window.alert(error); }
     );
     this.$.taskDocument.reset();
-  },
-
-  computeKnownTags_(tasks) {
-    return computeKnownTags(tasks);
   }
 });
   </script>

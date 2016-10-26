@@ -29,15 +29,14 @@
     </div>
     <div>
       <label>Tags</label>
-      <sugar-tags-input tags="{{task.tags}}" knownTags="{{knownTags}}"></sugar-tags-input>
+      <sugar-tags-input tags="{{task.tags}}"></sugar-tags-input>
   </template>
   <script>
 Polymer({
   is: 'sugar-task-editor',
 
   properties: {
-    task: Object,
-    knownTags: Array
+    task: Object
   }
 });
   </script>
