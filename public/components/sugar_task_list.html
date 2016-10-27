@@ -4,7 +4,22 @@
   <template>
     <h2>Tasks</h2>
     <ul>
-      <template is="dom-repeat" items="{{tasks}}" sort="taskCompare_">
+      <template is="dom-repeat"
+                items="{{tasks}}"
+                filter="isIncomplete_"
+                sort="taskCompare_"
+                observe="status scheduledTime deadlineTime">
+        <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
+      </template>
+    </ul>
+
+    <h2>Tasks (completed)</h2>
+    <ul>
+      <template is="dom-repeat"
+                items="{{tasks}}"
+                filter="isComplete_"
+                sort="taskCompare_"
+                observe="status scheduledTime deadlineTime">
         <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
       </template>
     </ul>
@@ -17,6 +32,18 @@ Polymer({
     tasks: Array
   },
 
+  isIncomplete_: function(task) {
+    return task.status === '' || task.status === 'todo' ||
+      task.status === 'waiting';
+  },
+
+  isComplete_: function(task) {
+    return task.status === 'done';
+  },
+
+  /**
+   * Compare function that determines the order of tasks in the list.
+   */
   taskCompare_: function(task1, task2) {
     var task1Scheduled = task1.scheduledTime || Infinity;
     var task2Scheduled = task2.scheduledTime || Infinity;
