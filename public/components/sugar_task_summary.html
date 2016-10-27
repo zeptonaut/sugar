@@ -8,8 +8,20 @@
       button[hidden] {
         display: none;
       }
+      #status {
+        font-weight: bold;
+      }
+      .TODO {
+        color: red;
+      }
+      .DONE {
+        color: green;
+      }
+      .WAITING {
+        color: #aaa;
+      }
     </style>
-    <div>{{task.status}}</div>
+    <div id="status" class$="{{task.status}}">{{task.status}}</div>
     <div>{{task.description}}</div>
     <div hidden="{{!task.scheduledTime}}">
       Scheduled: {{computeTimeText(task.scheduledTime)}}
