@@ -19,12 +19,14 @@
     </div>
     <div>
       <label>Scheduled time</label>
-      <sugar-time-input placeholder="Scheduled time"
+      <sugar-time-input id="scheduledTimeInput"
+                        placeholder="Scheduled time"
                         time="{{task.scheduledTime}}"></sugar-time-input>
     </div>
     <div>
       <label>Deadline time</label>
-      <sugar-time-input placeholder="Deadline time"
+      <sugar-time-input id="deadlineTimeInput"
+                        placeholder="Deadline time"
                         time="{{task.deadlineTime}}"></sugar-time-input>
     </div>
     <div>
@@ -37,6 +39,11 @@ Polymer({
 
   properties: {
     task: Object
+  },
+
+  reset: function() {
+    this.$.scheduledTimeInput.reset();
+    this.$.deadlineTimeInput.reset();
   }
 });
   </script>

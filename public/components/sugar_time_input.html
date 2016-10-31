@@ -27,6 +27,10 @@
     'textInput.input': 'onTextInput_'
   },
 
+  reset: function() {
+    this.$.textInput.value = '';
+  },
+
   onTextInput_: function(e) {
     var time = chrono.parseDate(this.$.textInput.value);
     this.set('time', (time === null) ? null : time.getTime());
