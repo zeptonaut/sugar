@@ -27,17 +27,45 @@
     'textInput.input': 'onTextInput_'
   },
 
+  ready: function() {
+    this.chrono_ = this.createCustomTimeParser_();
+  },
+
   reset: function() {
     this.$.textInput.value = '';
   },
 
   onTextInput_: function(e) {
-    var time = chrono.parseDate(this.$.textInput.value);
+    var time = this.chrono_.parseDate(this.$.textInput.value);
     this.set('time', (time === null) ? null : time.getTime());
   },
 
   computeTimeText_: function(time) {
     return this.time ? new Date(this.time).toLocaleString() : 'none';
+  },
+
+  /**
+   * Returns a custom time parser that defaults to midnight rather than noon
+   * when the hour is ambiguous.
+   */
+  createCustomTimeParser_: function() {
+    var midnightRefiner = new chrono.Refiner();
+    midnightRefiner.refine = (text, results, opt) => {
+      for (var result of results) {
+        if (result.start !== undefined && !result.start.isCertain('hour')) {
+          result.start.imply('hour', 0);
+        }
+        if (result.end !== undefined && !result.start.isCertain('hour')) {
+          result.end.imply('hour', 0);
+        }
+      };
+
+      return results;
+    };
+
+    var customParser = new chrono.Chrono(chrono.options.casualOption());
+    customParser.refiners.push(midnightRefiner);
+    return customParser;
   }
 });
   </script>
