@@ -20,13 +20,23 @@
       .WAITING {
         color: #aaa;
       }
+      .scheduled {
+        font-weight: bold;
+        color: green;
+      }
+      .due {
+        font-weight: bold;
+        color: red;
+      }
     </style>
     <div id="status" class$="{{task.status}}">{{task.status}}</div>
     <div>{{task.description}}</div>
-    <div hidden="{{!task.scheduledTime}}">
+    <div class$="{{computeScheduledTimeClass_(task.scheduledTime)}}"
+         hidden="{{!task.scheduledTime}}">
       Scheduled: {{computeTimeText(task.scheduledTime)}}
     </div>
-    <div hidden="{{!task.deadlineTime}}">
+    <div class$="{{computeScheduledTimeClass_(task.deadlineTime)}}"
+         hidden="{{!task.deadlineTime}}">
       Deadline: {{computeTimeText(task.deadlineTime)}}
     </div>
   </template>
@@ -44,6 +54,14 @@ Polymer({
   // around the database object?
   computeTimeText: function(time) {
     return time ? new Date(time).toLocaleString() : 'none';
+  },
+
+  computeScheduledTimeClass_: function(scheduledTime) {
+    return scheduledTime < Date.now() ? 'scheduled' : '';
+  },
+
+  computeDeadlineTimeClass_: function(deadlineTime) {
+    return deadlineTime < Date.now() ? 'due' : '';
   }
 });
   </script>
