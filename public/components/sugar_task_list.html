@@ -2,11 +2,22 @@
 
 <dom-module id="sugar-task-list">
   <template>
-    <h2>Tasks</h2>
+    <h2>Tasks (current)</h2>
     <ul>
       <template is="dom-repeat"
                 items="{{tasks}}"
-                filter="isIncomplete_"
+                filter="isIncompleteCurrent_"
+                sort="taskCompare_"
+                observe="status scheduledTime deadlineTime">
+        <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
+      </template>
+    </ul>
+
+    <h2>Tasks (future)</h2>
+    <ul>
+      <template is="dom-repeat"
+                items="{{tasks}}"
+                filter="isIncompleteFuture_"
                 sort="taskCompare_"
                 observe="status scheduledTime deadlineTime">
         <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
@@ -34,7 +45,17 @@ Polymer({
 
   isIncomplete_: function(task) {
     return task.status === '' || task.status === 'todo' ||
-      task.status === 'waiting';
+        task.status === 'waiting';
+  },
+
+  isIncompleteCurrent_: function(task) {
+    return this.isIncomplete_(task) &&
+        this.getEarliestTaskTime_(task) <= Date.now();
+  },
+
+  isIncompleteFuture_: function(task) {
+    return this.isIncomplete_(task) &&
+        this.getEarliestTaskTime_(task) > Date.now();
   },
 
   isComplete_: function(task) {
@@ -43,18 +64,24 @@ Polymer({
 
   /**
    * Compare function that determines the order of tasks in the list.
+   *
+   * Tasks are currently ordered in ascending order by the time at which they
+   * become applicable (the minimum of the scheduled time and the deadline
+   * time).
    */
   taskCompare_: function(task1, task2) {
-    var task1Scheduled = task1.scheduledTime || Infinity;
-    var task2Scheduled = task2.scheduledTime || Infinity;
-    var task1Deadline = task1.deadlineTime || Infinity;
-    var task2Deadline = task2.deadlineTime || Infinity;
+    return this.getEarliestTaskTime_(task1) - this.getEarliestTaskTime_(task2);
+  },
 
-    var task1Time = Math.min(task1Scheduled, task1Deadline);
-    var task2Time = Math.min(task2Scheduled, task2Deadline);
-
-    return task1Time - task2Time;
+  /**
+   * Returns the earliest time applicable to the task. If any time is unset,
+   * it's treated as Infinity.
+   */
+  getEarliestTaskTime_: function(task) {
+    var taskScheduledTime = task.scheduledTime || Infinity;
+    var taskDeadlineTime = task.deadlineTime || Infinity;
+    return Math.min(taskScheduledTime, taskDeadlineTime);
   }
 });
-  </script>
+</script>
 </dom-module>
