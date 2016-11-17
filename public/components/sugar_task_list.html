@@ -1,39 +1,59 @@
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-styles/typography.html">
 <link rel="import" href="sugar_task_list_item.html">
 
 <dom-module id="sugar-task-list">
   <template>
-    <h2>Tasks (current)</h2>
-    <ul>
-      <template is="dom-repeat"
-                items="{{tasks}}"
-                filter="isIncompleteCurrent_"
-                sort="taskCompare_"
-                observe="status scheduledTime deadlineTime">
-        <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
-      </template>
-    </ul>
-
+    <style is="custom-style">
+    h2 {
+      @apply(--paper-font-subhead);
+      font-weight: bold;
+      color: #212121;
+      font-size: 0.9rem;
+      line-height: 1.8rem;
+    }
+    paper-material {
+      background: #fff;
+      max-width: 800px;
+    }
+    </style>
+    <h2>Tasks (today)</h2>
+    <paper-material elevation="2">
+      <ul>
+        <template is="dom-repeat"
+                  items="{{tasks}}"
+                  filter="isIncompleteCurrent_"
+                  sort="taskCompare_"
+                  observe="status scheduledTime deadlineTime">
+          <li class="task"><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
+        </template>
+      </ul>
+    </paper-material>
     <h2>Tasks (future)</h2>
-    <ul>
-      <template is="dom-repeat"
-                items="{{tasks}}"
-                filter="isIncompleteFuture_"
-                sort="taskCompare_"
-                observe="status scheduledTime deadlineTime">
-        <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
-      </template>
-    </ul>
+    <paper-material elevation="2">
+      <ul>
 
+        <template is="dom-repeat"
+                  items="{{tasks}}"
+                  filter="isIncompleteFuture_"
+                  sort="taskCompare_"
+                  observe="status scheduledTime deadlineTime">
+          <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
+        </template>
+      </ul>
+    </paper-material>
     <h2>Tasks (completed)</h2>
-    <ul>
-      <template is="dom-repeat"
-                items="{{tasks}}"
-                filter="isComplete_"
-                sort="taskCompare_"
-                observe="status scheduledTime deadlineTime">
-        <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
-      </template>
-    </ul>
+    <paper-material elevation="2">
+      <ul>
+        <template is="dom-repeat"
+                  items="{{tasks}}"
+                  filter="isComplete_"
+                  sort="taskCompare_"
+                  observe="status scheduledTime deadlineTime">
+          <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
+        </template>
+      </ul>
+    </paper-material>
   </template>
   <script>
 Polymer({

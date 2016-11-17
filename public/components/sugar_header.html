@@ -1,17 +1,21 @@
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+
 <dom-module id="sugar-header">
   <template>
-    <nav>
+    <paper-toolbar>
+      <span class="title">Sugar</span>
       <template is="dom-if" if="[[user]]">
-        <button id="signOut" on-tap="onSignOut">
+        <paper-button raised id="signOut" on-tap="onSignOut">
           Sign Out
-        </button>
+        </paper-button>
       </template>
       <template is="dom-if" if="[[!user]]">
-        <button id="signIn" on-tap="onSignIn">
+        <paper-button raised id="signIn" on-tap="onSignIn">
           Sign In With Google
-        </button>
+        </paper-button>
       </template>
-    </nav>
+    </paper-toolbar>
   </template>
   <script>
 Polymer({

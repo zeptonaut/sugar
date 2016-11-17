@@ -8,6 +8,12 @@
 
 <dom-module id="sugar-app">
   <template>
+    <style is="custom-style">
+      #content {
+        padding: 1rem;
+        background-color: #f2f2f2;
+      }
+    </style>
     <firebase-app app-name="sugar"
                   api-key="AIzaSyA_AZemalItTtJAwk-X4nsJjdfF0mEg3hA"
                   auth-domain="sugar-119d4.firebaseapp.com"
@@ -27,12 +33,13 @@
                   user="[[user]]"
                   on-sign-in="onSignIn",
                   on-sign-out="onSignOut"></sugar-header>
-    <sugar-task-creator hidden="[[!user]]"
-                        on-create-task="onCreateTask"></sugar-task-creator>
-    <sugar-task-list tasks="{{tasks}}"
-                     hidden="[[!user]]"
-                     on-edit-task="onEditTask"></sugar-task-list>
-
+    <div id="content">
+      <sugar-task-creator hidden="[[!user]]"
+                          on-create-task="onCreateTask"></sugar-task-creator>
+      <sugar-task-list tasks="{{tasks}}"
+                       hidden="[[!user]]"
+                       on-edit-task="onEditTask"></sugar-task-list>
+    </div>
   </template>
   <script>
 Polymer({

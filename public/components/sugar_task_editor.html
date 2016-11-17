@@ -1,16 +1,22 @@
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="sugar_tags_input.html">
 <link rel="import" href="sugar_time_input.html">
 
 <dom-module id="sugar-task-editor">
   <template>
     <div>
-      <label>Status</label>
-      <select value="{{task.status::change}}">
-        <option value="">none</option>
-        <option value="todo">todo</option>
-        <option value="waiting">waiting</option>
-        <option value="done">done</option>
-      </select>
+      <paper-dropdown-menu label="Status">
+        <paper-listbox class="dropdown-content"
+                       selected="{{task.status}}"
+                       attr-for-selected="value">
+          <paper-item value="none">none</paper-item>
+          <paper-item value="todo">todo</paper-item>
+          <paper-item value="waiting">waiting</paper-item>
+          <paper-item value="done">done</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
     </div>
     <div>
       <label>Description</label>
