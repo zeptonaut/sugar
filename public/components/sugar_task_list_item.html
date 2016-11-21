@@ -1,17 +1,40 @@
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="sugar_task_editor.html">
 <link rel="import" href="sugar_task_summary.html">
 
 <dom-module id="sugar-task-list-item">
   <template>
+    <style>
+      #readView, #editView {
+        position: relative;
+      }
+      sugar-task-summary {
+        margin-right: 30px;
+      }
+      .actions {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .actions > paper-icon-button {
+        color: #888;
+        width: 30px;
+        height: 30px;
+      }
+      .actions > paper-icon-button:hover {
+        color: #1b1b1b;
+      }
+    </style>
     <div id="readView" hidden="{{isBeingEdited}}">
       <sugar-task-summary task="{{task}}"></sugar-task-summary>
-      <div>
-        <button id="editorEnter">Edit</button>
+      <div class="actions">
+        <paper-icon-button mini id="editorEnter" icon="create"></paper-icon-button>
       </div>
     </div>
     <div id="editView" hidden="{{!isBeingEdited}}">
         <sugar-task-editor task="{{editorTask}}"></sugar-task-editor>
-        <div>
+        <div class="actions">
           <button id="editorSave">Save</button>
           <button id="editorCancel">Cancel</button>
         </div>

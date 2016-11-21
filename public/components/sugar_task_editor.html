@@ -1,6 +1,8 @@
 <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+
 <link rel="import" href="sugar_tags_input.html">
 <link rel="import" href="sugar_time_input.html">
 
@@ -11,30 +13,20 @@
         <paper-listbox class="dropdown-content"
                        selected="{{task.status}}"
                        attr-for-selected="value">
-          <paper-item value="none">none</paper-item>
           <paper-item value="todo">todo</paper-item>
           <paper-item value="waiting">waiting</paper-item>
           <paper-item value="done">done</paper-item>
         </paper-listbox>
       </paper-dropdown-menu>
-    </div>
-    <div>
-      <label>Description</label>
-      <input label="Task description"
-             value="{{task.description::input}}" />
-    </div>
-    <div>
-      <label>Scheduled time</label>
+      <paper-input id="textInput"
+                   label="Task description"
+                   value="{{task.description}}"></paper-input>
       <sugar-time-input id="scheduledTimeInput"
-                        placeholder="Scheduled time"
+                        label="Scheduled time"
                         time="{{task.scheduledTime}}"></sugar-time-input>
-    </div>
-    <div>
-      <label>Deadline time</label>
       <sugar-time-input id="deadlineTimeInput"
-                        placeholder="Deadline time"
+                        label="Deadline time"
                         time="{{task.deadlineTime}}"></sugar-time-input>
-    </div>
     <div>
       <label>Tags</label>
       <sugar-tags-input tags="{{task.tags}}"></sugar-tags-input>

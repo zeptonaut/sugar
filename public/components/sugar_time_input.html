@@ -1,3 +1,4 @@
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <script src="../bower_components/chrono/chrono.js"></script>
 
 <dom-module id="sugar-time-input">
@@ -7,7 +8,8 @@
         text-align: right;
       }
     </style>
-    <input id="textInput" type="text" placeholder$="{{placeholder}}" /><span id="timeText">({{computeTimeText_(time)}})</span>
+    <paper-input id="textInput" type="text" label="{{label}}"></paper-input>
+    <span id="timeText">({{computeTimeText_(time)}})</span>
   </template>
   <script>Polymer({
   is: 'sugar-time-input',
@@ -17,7 +19,7 @@
       type: Number,
       notify: true
     },
-    placeholder: {
+    label: {
       type: String,
       value: ""
     }
