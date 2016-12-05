@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="sugar_task_editor.html">
 <link rel="import" href="sugar_task_summary.html">
@@ -12,32 +13,36 @@
       sugar-task-summary {
         margin-right: 30px;
       }
-      .actions {
+      .quickActions {
         position: absolute;
         right: 0;
         top: 0;
       }
-      .actions > paper-icon-button {
+      .quickActions > paper-icon-button {
         color: #888;
         width: 30px;
         height: 30px;
       }
-      .actions > paper-icon-button:hover {
+      .quickActions > paper-icon-button:hover {
         color: #1b1b1b;
+      }
+      .actions {
+        margin-top: 20px;
+        font-size: 13px;
       }
     </style>
     <div id="readView" hidden="{{isBeingEdited}}">
       <sugar-task-summary task="{{task}}"></sugar-task-summary>
-      <div class="actions">
+      <div class="quickActions">
         <paper-icon-button mini id="editorEnter" icon="create"></paper-icon-button>
       </div>
     </div>
     <div id="editView" hidden="{{!isBeingEdited}}">
-        <sugar-task-editor task="{{editorTask}}"></sugar-task-editor>
-        <div class="actions">
-          <button id="editorSave">Save</button>
-          <button id="editorCancel">Cancel</button>
-        </div>
+      <sugar-task-editor task="{{editorTask}}"></sugar-task-editor>
+      <div class="actions">
+        <paper-button id="editorCancel" raised>Cancel</paper-button>
+        <paper-button id="editorSave" raised>Save</paper-button>
+      <div>
     </div>
   </template>
   <script>

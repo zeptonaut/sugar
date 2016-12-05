@@ -1,3 +1,4 @@
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-document.html">
@@ -10,8 +11,14 @@
   <template>
     <style is="custom-style">
       #content {
+        position: relative;
         padding: 1rem;
         background-color: #f2f2f2;
+      }
+      #addTaskButton {
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
       }
     </style>
     <firebase-app app-name="sugar"
@@ -34,11 +41,15 @@
                   on-sign-in="onSignIn",
                   on-sign-out="onSignOut"></sugar-header>
     <div id="content">
-      <sugar-task-creator hidden="[[!user]]"
+      <sugar-task-creator id="taskCreator"
+                          hidden="[[!user]]"
                           on-create-task="onCreateTask"></sugar-task-creator>
       <sugar-task-list tasks="{{tasks}}"
                        hidden="[[!user]]"
                        on-edit-task="onEditTask"></sugar-task-list>
+      <paper-fab id="addTaskButton"
+                 icon="add"
+                 on-tap="onAddTask"></paper-fab>
     </div>
   </template>
   <script>
@@ -74,6 +85,10 @@ Polymer({
     delete task.$key;
 
     this.saveTask_(task, key);
+  },
+
+  onAddTask: function(e) {
+    this.$.taskCreator.show();
   },
 
   saveTask_: function(task, key) {

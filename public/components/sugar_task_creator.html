@@ -1,12 +1,27 @@
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="sugar_task_editor.html">
 
 <dom-module id="sugar-task-creator">
   <template>
-    <h2>Create task</h2>
-    <form id="createTaskForm">
-      <sugar-task-editor id="taskEditor" task="{{task}}"></sugar-task-editor>
-      <input type="submit" value="Add" />
-    </form>
+    <style>
+      paper-dialog {
+        min-width: 500px;
+      }
+      .actions {
+        margin-top: 20px;
+        font-size: 13px;
+      }
+    </style>
+    <paper-dialog id="dialog" modal>
+      <h2>Create task</h2>
+      <form id="createTaskForm">
+        <sugar-task-editor id="taskEditor" task="{{task}}"></sugar-task-editor>
+        <div class="actions">
+          <paper-button id="cancelButton" raised dialog-dismiss>Cancel</paper-button>
+          <paper-button id="createButton" raised dialog-confirm autofocus>Create</paper-button>
+        </div>
+      </form>
+    </paper-dialog>
   </template>
   <script>
 Polymer({
@@ -28,7 +43,12 @@ Polymer({
   },
 
   listeners: {
-    'createTaskForm.submit': 'onCreateTask'
+    'cancelButton.tap': 'reset',
+    'createButton.tap': 'onCreateTask'
+  },
+
+  show: function() {
+    this.$.dialog.open();
   },
 
   reset: function() {
