@@ -35,6 +35,7 @@
     <div id="readView" hidden="{{isBeingEdited}}">
       <sugar-task-summary task="{{task}}"></sugar-task-summary>
       <div class="quickActions">
+        <paper-icon-button mini id="snooze" icon="query-builder"></paper-icon-button>
         <paper-icon-button mini id="editorEnter" icon="create"></paper-icon-button>
       </div>
     </div>
@@ -60,9 +61,18 @@ Polymer({
   },
 
   listeners: {
+    'snooze.tap': 'snooze',
     'editorEnter.tap': 'onEditorEnter',
     'editorSave.tap': 'onEditorSave',
     'editorCancel.tap': 'onEditorCancel'
+  },
+
+  snooze: function() {
+    if (!this.task.scheduledTime) return;
+    var midnightTomorrow = new Date();
+    midnightTomorrow.setHours(24, 0, 0, 0);
+    this.set('task.scheduledTime', midnightTomorrow.getTime());
+    this.fire('edit-task', this.editorTask);
   },
 
   onEditorEnter: function() {
