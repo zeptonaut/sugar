@@ -25,19 +25,20 @@
       border-bottom: 0.5px solid #e1e1e1;
     }
     </style>
-    <h2>Tasks (today)</h2>
+    <h2>Today ({{incompleteCurrentTaskCount}})</h2>
     <paper-material elevation="2">
       <ul>
         <template is="dom-repeat"
                   items="{{tasks}}"
                   filter="isIncompleteCurrent_"
                   sort="taskCompare_"
-                  observe="status scheduledTime deadlineTime">
+                  observe="status scheduledTime deadlineTime"
+                  rendered-item-count="{{incompleteCurrentTaskCount}}">
           <li class="task"><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
         </template>
       </ul>
     </paper-material>
-    <h2>Tasks (future)</h2>
+    <h2>Future ([[incompleteFutureTaskCount]])</h2>
     <paper-material elevation="2">
       <ul>
 
@@ -45,19 +46,21 @@
                   items="{{tasks}}"
                   filter="isIncompleteFuture_"
                   sort="taskCompare_"
-                  observe="status scheduledTime deadlineTime">
+                  observe="status scheduledTime deadlineTime"
+                  rendered-item-count="{{incompleteFutureTaskCount}}">
           <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
         </template>
       </ul>
     </paper-material>
-    <h2>Tasks (completed)</h2>
+    <h2>Complete ({{completeTaskCount}})</h2>
     <paper-material elevation="2">
       <ul>
         <template is="dom-repeat"
                   items="{{tasks}}"
                   filter="isComplete_"
                   sort="taskCompare_"
-                  observe="status scheduledTime deadlineTime">
+                  observe="status scheduledTime deadlineTime"
+                  rendered-item-count="{{completeTaskCount}}">
           <li><sugar-task-list-item task="{{item}}"></sugar-task-list-item></li>
         </template>
       </ul>
@@ -68,7 +71,10 @@ Polymer({
   is: 'sugar-task-list',
 
   properties: {
-    tasks: Array
+    tasks: Array,
+    incompleteCurrentTaskCount: Number,
+    incompleteFutureTaskCount: Number,
+    completeTaskCount: Number
   },
 
   isIncomplete_: function(task) {
