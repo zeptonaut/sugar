@@ -20,6 +20,16 @@
       <paper-input id="textInput"
                    label="Task description"
                    value="{{task.description}}"></paper-input>
+      <paper-dropdown-menu label="Priority">
+        <paper-listbox class="dropdown-content"
+                       selected="{{task.priority}}">
+          <paper-item>0</paper-item>
+          <paper-item>1</paper-item>
+          <paper-item>2</paper-item>
+          <paper-item>3</paper-item>
+          <paper-item>4</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
       <sugar-time-input id="scheduledTimeInput"
                         label="Scheduled time"
                         time="{{task.scheduledTime}}"></sugar-time-input>

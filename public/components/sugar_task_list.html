@@ -104,7 +104,20 @@ Polymer({
    * time).
    */
   taskCompare_: function(task1, task2) {
+    var priorityDifference =
+        this.getEffectivePriority_(task1) - this.getEffectivePriority_(task2);
+    if (priorityDifference !== 0) return priorityDifference;
+
     return this.getEarliestTaskTime_(task1) - this.getEarliestTaskTime_(task2);
+  },
+
+  /**
+   * Returns the effective priority of the task. Tasks without an assigned
+   * priority are assumed to have a priority of Infinity (i.e. the lowest
+   * possible priority).
+   */
+  getEffectivePriority_: function(task) {
+    return task.priority !== undefined ? task.priority : Infinity;
   },
 
   /**

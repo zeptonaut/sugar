@@ -8,17 +8,32 @@
       button[hidden] {
         display: none;
       }
+      #metadataBar {
+        margin-bottom: 5px;
+      }
       #status {
         font-weight: bold;
+        font-family: 'Inconsolata';
+        color: white;
+        padding: 3px;
+        border-radius: 3px;
       }
       .TODO {
-        color: red;
+        background-color: red;
       }
       .DONE {
-        color: green;
+        background-color: green;
       }
       .WAITING {
-        color: #aaa;
+        background-color: #aaa;
+      }
+      #priority {
+        font-weight: bold;
+        font-family: 'Inconsolata';
+        color: white;
+        padding: 3px;
+        border-radius: 3px;
+        background-color: #aaa;
       }
       .scheduled {
         font-weight: bold;
@@ -29,7 +44,12 @@
         color: red;
       }
     </style>
-    <div id="status" class$="{{task.status}}">{{task.status}}</div>
+    <div id="metadataBar">
+      <span id="status" class$="{{task.status}}">{{task.status}}</span>
+      <template is="dom-if" if="{{taskHasPriority_(task)}}">
+        <span id="priority" class$="{{task.priority}}">P{{task.priority}}</span>
+      </template>
+    </div>
     <div>{{task.description}}</div>
     <div class$="{{computeScheduledTimeClass_(task.scheduledTime)}}"
          hidden="{{!task.scheduledTime}}">
@@ -62,6 +82,10 @@ Polymer({
 
   computeDeadlineTimeClass_: function(deadlineTime) {
     return deadlineTime < Date.now() ? 'due' : '';
+  },
+
+  taskHasPriority_: function(task) {
+    return task.priority !== undefined;
   }
 });
   </script>
