@@ -32,20 +32,34 @@
         font-size: 13px;
       }
     </style>
-    <div id="readView" hidden="{{isBeingEdited}}">
-      <sugar-task-summary task="{{task}}"></sugar-task-summary>
-      <div class="quickActions">
-        <paper-icon-button mini id="snooze" icon="query-builder"></paper-icon-button>
-        <paper-icon-button mini id="editorEnter" icon="create"></paper-icon-button>
+    <template is="dom-if" if="[[!isBeingEdited]]">
+      <div id="readView">
+        <sugar-task-summary task="{{task}}"></sugar-task-summary>
+        <div class="quickActions">
+          <paper-icon-button id="snooze"
+                             mini
+                             icon="query-builder"
+                             on-tap="snooze"></paper-icon-button>
+          <paper-icon-button id="editorEnter"
+                             mini
+                             icon="create"
+                             on-tap="onEditorEnter"></paper-icon-button>
+        </div>
       </div>
-    </div>
-    <div id="editView" hidden="{{!isBeingEdited}}">
-      <sugar-task-editor task="{{editorTask}}"></sugar-task-editor>
-      <div class="actions">
-        <paper-button id="editorCancel" raised>Cancel</paper-button>
-        <paper-button id="editorSave" raised>Save</paper-button>
-      <div>
-    </div>
+    </template>
+    <template is="dom-if" if="[[isBeingEdited]]">
+      <div id="editView">
+        <sugar-task-editor task="{{editorTask}}"></sugar-task-editor>
+        <div class="actions">
+          <paper-button id="editorCancel"
+                        raised
+                        on-tap="onEditorCancel">Cancel</paper-button>
+          <paper-button id="editorSave"
+                        raised
+                        on-tap="onEditorSave">Save</paper-button>
+        </div>
+      </div>
+    </template>
   </template>
   <script>
 Polymer({
@@ -60,12 +74,9 @@ Polymer({
     }
   },
 
-  listeners: {
-    'snooze.tap': 'snooze',
-    'editorEnter.tap': 'onEditorEnter',
-    'editorSave.tap': 'onEditorSave',
-    'editorCancel.tap': 'onEditorCancel'
-  },
+  observers: [
+    'onTaskChanged(task)'
+  ],
 
   snooze: function() {
     if (!this.task.scheduledTime) return;
