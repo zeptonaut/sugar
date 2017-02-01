@@ -3,7 +3,7 @@
   "short_name": "Sugar",
   "theme_color": "#00dc9c",
   "background_color": "white",
-  "display": "fullscreen",
+  "display": "standalone",
   "start_url": "/",
   "icons": [
     {
@@ -47,5 +47,4 @@
       "type": "image/png"
     }
   ],
-  "splash_pages": null
 }
