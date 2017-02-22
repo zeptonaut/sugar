@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
-<script src="../bower_components/chrono/chrono.js"></script>
+<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<script src="../bower_components/moment/moment.js"></script>
 
 <dom-module id="sugar-time-input">
   <template>
@@ -8,8 +9,17 @@
         text-align: right;
       }
     </style>
-    <paper-input id="textInput" type="text" label="{{label}}"></paper-input>
-    <span id="timeText">({{computeTimeText_(time)}})</span>
+    <vaadin-date-picker id="dateInput"
+                        label="[[label]]"
+                        value="{{computeDateString_(time)}}"></vaadin-date-picker>
+    <div hidden$="{{isTimeUnset_(time)}}">
+      <p>at</p>
+      <input id="timeInput"
+             type="time"
+             value="{{computeTimeString_(time)}}"/>
+    </div>
+    <!--<paper-input id="textInput" type="text" label="{{label}}"></paper-input>
+    <span id="timeText">({{computeTimeText_(time)}})</span>-->
   </template>
   <script>Polymer({
   is: 'sugar-time-input',
@@ -26,48 +36,42 @@
   },
 
   listeners: {
-    'textInput.input': 'onTextInput_'
-  },
-
-  ready: function() {
-    this.chrono_ = this.createCustomTimeParser_();
-  },
-
-  reset: function() {
-    this.$.textInput.value = '';
-  },
-
-  onTextInput_: function(e) {
-    var time = this.chrono_.parseDate(this.$.textInput.value);
-    this.set('time', (time === null) ? null : time.getTime());
-  },
-
-  computeTimeText_: function(time) {
-    return this.time ? new Date(this.time).toLocaleString() : 'none';
+    'dateInput.value-changed': 'onDateChanged_',
+    'timeInput.value-changed': 'onTimeChanged_'
   },
 
   /**
-   * Returns a custom time parser that defaults to midnight rather than noon
-   * when the hour is ambiguous.
+   * @returns {string} The given time as an ISO date string, e.g. "1970-20-01".
    */
-  createCustomTimeParser_: function() {
-    var midnightRefiner = new chrono.Refiner();
-    midnightRefiner.refine = (text, results, opt) => {
-      for (var result of results) {
-        if (result.start !== undefined && !result.start.isCertain('hour')) {
-          result.start.imply('hour', 0);
-        }
-        if (result.end !== undefined && !result.start.isCertain('hour')) {
-          result.end.imply('hour', 0);
-        }
-      };
+  computeDateString_: function(time) {
+    if (!time) return null;
+    return new Date(time).toISOString().substr(0, 10);
+  },
 
-      return results;
-    };
+  /**
+   * @returns {string} The given time as an ISO time string, e.g. "14:04:24".
+   */
+  computeTimeString_: function(time) {
+    return moment(time).format("HH:mm:ss");
+  },
 
-    var customParser = new chrono.Chrono(chrono.options.casualOption());
-    customParser.refiners.push(midnightRefiner);
-    return customParser;
+  isTimeUnset_: function(time) {
+    return !time;
+  },
+
+  onDateChanged_: function(e) {
+    this.set('time', this.computeDate_());
+  },
+
+  onTimeChanged_: function(e) {
+    this.set('time', this.computeDate_());
+  },
+
+  computeDate_: function() {
+    var dateString = this.$.dateInput.value;
+    if (!dateString) return null;
+    var timeString = this.$.timeInput.value || '00:00';
+    return moment(`${dateString} ${timeString}`).valueOf();
   }
 });
   </script>
