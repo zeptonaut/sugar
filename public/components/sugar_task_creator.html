@@ -53,10 +53,6 @@ Polymer({
   },
 
   reset: function() {
-    // TODO(charliea): Is there any way to avoid this? Right now, it's necessary
-    // because the time text controls the time value but not vice versa.
-    this.$.taskEditor.reset();
-
     // TODO(charliea): Is there a way to share the initialization here and
     // above? It looks like we can't use a `createDefaultTask()` function
     // because it's not available yet when the property initialization happens.
