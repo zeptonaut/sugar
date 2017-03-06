@@ -36,14 +36,15 @@
       <div id="readView">
         <sugar-task-summary task="{{task}}"></sugar-task-summary>
         <div class="quickActions">
-          <paper-icon-button id="snooze"
-                             mini
+          <paper-icon-button mini
                              icon="query-builder"
-                             on-tap="snooze"></paper-icon-button>
-          <paper-icon-button id="editorEnter"
-                             mini
+                             on-tap="onSnooze"></paper-icon-button>
+          <paper-icon-button mini
                              icon="create"
                              on-tap="onEditorEnter"></paper-icon-button>
+          <paper-icon-button mini
+                             icon="done"
+                             on-tap="onMarkDone"></paper-icon-button>
         </div>
       </div>
     </template>
@@ -74,11 +75,16 @@ Polymer({
     }
   },
 
-  snooze: function() {
+  onSnooze: function() {
     if (!this.task.scheduledTime) return;
     var midnightTomorrow = new Date();
     midnightTomorrow.setHours(24, 0, 0, 0);
     this.set('task.scheduledTime', midnightTomorrow.getTime());
+    this.fire('edit-task', this.editorTask);
+  },
+
+  onMarkDone: function() {
+    this.set('task.status', 'done');
     this.fire('edit-task', this.editorTask);
   },
 
