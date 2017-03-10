@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-messaging.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="sugar_task_creator.html">
 <link rel="import" href="sugar_header.html">
@@ -34,6 +35,9 @@
                     path="/users/[[user.uid]]/tasks"
                     data="{{tasks}}"></firebase-query>
     <firebase-document id="taskDocument"></firebase-document>
+    <firebase-messaging id="messaging"
+                        token="{{token}}"
+                        on-message="handleMessage"></firebase-messaging>
 
     <sugar-header id="header"
                   user="[[user]]"
@@ -57,6 +61,14 @@ Polymer({
 
   properties: {
     tasks: Array
+  },
+
+  ready: function() {
+    this.$.messaging.requestPermission.then(() => {
+      console.log('Notification permission granted.');
+    }).catch((err) => {
+      console.log('Unable to get permission to notify.', err);
+    });
   },
 
   onError: function() {
