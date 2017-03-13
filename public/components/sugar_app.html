@@ -25,6 +25,7 @@
                   api-key="AIzaSyA_AZemalItTtJAwk-X4nsJjdfF0mEg3hA"
                   auth-domain="sugar-119d4.firebaseapp.com"
                   database-url="https://sugar-119d4.firebaseio.com"
+                  messaging-sender-id="915173614937"
                   storage-bucket="sugar-119d4.appspot.com"></firebase-app>
     <firebase-auth id="auth"
                    user="{{user}}"
@@ -35,9 +36,13 @@
                     path="/users/[[user.uid]]/tasks"
                     data="{{tasks}}"></firebase-query>
     <firebase-document id="taskDocument"></firebase-document>
+
     <firebase-messaging id="messaging"
-                        token="{{token}}"
+                        token="{{messagingToken}}"
                         on-message="handleMessage"></firebase-messaging>
+    <!-- TODO(charliea): Why isn't this being saved to the database? -->
+    <firebase-document path="/users/[[user.uid]]/messagingToken"
+                       value="[[messagingToken]]"></firebase-document>
 
     <sugar-header id="header"
                   user="[[user]]"
@@ -60,11 +65,12 @@ Polymer({
   is: 'sugar-app',
 
   properties: {
+    messagingToken: String,
     tasks: Array
   },
 
   ready: function() {
-    this.$.messaging.requestPermission.then(() => {
+    this.$.messaging.requestPermission().then(() => {
       console.log('Notification permission granted.');
     }).catch((err) => {
       console.log('Unable to get permission to notify.', err);
